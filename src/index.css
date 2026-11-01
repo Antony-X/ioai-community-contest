@@ -8,6 +8,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 @import './styles/prism.css';
 
@@ -15,7 +17,7 @@
 
 /* Set Poppins as the default font */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Geist', 'Inter', system-ui, sans-serif;
 }
 
 /* Container utilities */
@@ -187,7 +189,7 @@ body {
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Geist', 'Inter', system-ui, sans-serif;
   }
 
   html {
@@ -309,15 +311,16 @@ body {
   }
 
   /* Gradient button for Discord CTA */
+  /* Unslopped: one solid brand accent instead of a purple-to-orange gradient */
   .btn-gradient {
-    background-image: var(--gradient-button);
-    background-size: 200% auto;
+    background-color: var(--aicc-purple);
     color: white;
-    transition: background-position 0.5s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    transition: background-color 150ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .btn-gradient:hover {
-    background-position: right center;
+    background-color: #7a00e0;
   }
 
   /* Section styling */
@@ -421,11 +424,9 @@ body {
 }
 
 @layer utilities {
+  /* Unslopped: headings stay solid, no gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, var(--aicc-purple) 0%, var(--aicc-orange) 60%, var(--aicc-orange) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: inherit;
   }
 
   .shadow-glow {

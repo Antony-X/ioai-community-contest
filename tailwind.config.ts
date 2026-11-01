@@ -92,9 +92,9 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				'sans': ['Inter', 'system-ui', 'sans-serif'],
+				'sans': ['Geist', 'Inter', 'system-ui', 'sans-serif'],
 				'display': ['Poppins', 'Inter', 'sans-serif'],
-				'mono': ['Fira Code', 'monospace'],
+				'mono': ['Geist Mono', 'Fira Code', 'monospace'],
 			},
 			backgroundImage: {
 				'gradient-primary': 'linear-gradient(135deg, #8C00FF 0%, #FF6600 100%)',

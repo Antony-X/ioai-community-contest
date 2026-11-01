@@ -23,20 +23,19 @@ const Index = () => {
         <HeroSection />
         <RulesSection />
 
-        <section className="relative py-24 bg-gray-50 dark:bg-[#0a0a0f] overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute top-0 left-0 w-full h-full max-w-7xl mx-auto">
-              <div className="absolute top-20 left-20 w-72 h-72 bg-aicc-purple/5 rounded-full blur-3xl" />
-              <div className="absolute bottom-20 right-20 w-96 h-96 bg-aicc-orange/5 rounded-full blur-3xl" />
-            </div>
-          </div>
-
-          <div className="relative z-10 max-w-4xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-gray-900 dark:text-white">Check Out Our</span>{' '}
-                <span className="text-gradient">Latest Contest</span>
+        <section className="border-t border-black/[0.06] bg-white py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="mb-8 flex items-end justify-between gap-6">
+              <h2 className="text-[32px] font-medium leading-[1.15] tracking-[-0.01em] text-neutral-900 md:text-4xl">
+                Latest contest
               </h2>
+              <button
+                onClick={() => navigate('/contests')}
+                className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-neutral-700 transition-colors duration-150 hover:bg-neutral-100 hover:text-neutral-900"
+              >
+                All past contests
+                <ChevronRight className="h-4 w-4 text-neutral-500" strokeWidth={1.5} />
+              </button>
             </div>
 
             {latestContest && (
@@ -48,17 +47,6 @@ const Index = () => {
                 roundId={latestContest.id}
               />
             )}
-
-            {/* See All Link */}
-            <div className="text-center mt-8">
-              <button
-                onClick={() => navigate('/contests')}
-                className="bg-background text-primary font-medium px-8 py-4 rounded-lg flex items-center gap-3 border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all inline-flex"
-              >
-                See All Past Contests
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
           </div>
         </section>
       </main>

@@ -65,19 +65,19 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-b from-white to-gray-50 dark:from-[#0a0a0f] dark:to-[#0f0f15] border-t border-gray-200 dark:border-white/10">
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
+    <footer className="border-t border-black/[0.06] bg-neutral-50">
+      <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <img src="/assets/AICCCC.png" alt="AICC Logo" className="h-8" />
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-              AICC (AI Community Contest) - Monthly IOAI practice rounds and
+            <p className="mb-6 max-w-sm text-sm leading-6 text-neutral-600">
+              AICC (AI Community Contest) runs monthly IOAI practice rounds and
               competitive AI challenges. Community-organized, not affiliated
               with official IOAI.
             </p>
-            <div className="flex gap-3">
+            <div className="-ml-2 flex gap-1">
               {socialLinks.map((social, index) => {
                 const IconComponent = social.icon;
                 return (
@@ -86,10 +86,10 @@ const Footer = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-aicc-purple hover:text-white transition-all duration-150"
+                    className="grid h-9 w-9 place-items-center rounded-lg text-neutral-500 transition-colors duration-150 hover:bg-neutral-100 hover:text-neutral-900"
                     aria-label={social.label}
                   >
-                    <IconComponent className="w-4 h-4" />
+                    <IconComponent className="w-4 h-4" strokeWidth={1.5} />
                   </a>
                 );
               })}
@@ -97,15 +97,15 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
-              Quick Links
+            <h3 className="mb-4 text-sm font-medium text-neutral-900">
+              Pages
             </h3>
             <nav className="space-y-3">
               {quickLinks.map((link, index) => (
                 <button
                   key={index}
                   onClick={() => handleNavigation(link.path)}
-                  className="block text-sm text-gray-600 dark:text-gray-400 hover:text-aicc-purple dark:hover:text-aicc-purple-light transition-colors transform duration-200"
+                  className="block text-sm text-neutral-600 transition-colors duration-150 hover:text-neutral-900"
                 >
                   {link.label}
                 </button>
@@ -114,7 +114,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+            <h3 className="mb-4 text-sm font-medium text-neutral-900">
               Resources
             </h3>
             <nav className="space-y-3">
@@ -124,19 +124,19 @@ const Footer = () => {
                   href={resource.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-sm text-gray-600 dark:text-gray-400 hover:text-aicc-purple dark:hover:text-aicc-purple-light transition-colors transform duration-200 flex items-center gap-1"
+                  className="flex items-center gap-1 text-sm text-neutral-600 transition-colors duration-150 hover:text-neutral-900"
                 >
                   {resource.label}
-                  <ExternalLink className="w-3 h-3 opacity-50" />
+                  <ExternalLink className="w-3 h-3 text-neutral-400" strokeWidth={1.5} />
                 </a>
               ))}
             </nav>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-200 dark:border-white/10">
+        <div className="border-t border-black/[0.06] pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-500 dark:text-gray-500">
+            <p className="text-sm text-neutral-500">
               &copy; {new Date().getFullYear()}{" "}
               AI Community Contest. All rights reserved.
             </p>

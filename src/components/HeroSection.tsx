@@ -1,129 +1,123 @@
-import { ExternalLink, Trophy, Users } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import data from "../data/contests.json";
 import type { ContestsData } from "@/data/types";
+import {
+  TASK_TYPE_COLORS,
+  TASK_TYPE_LABELS,
+  splitTaskType,
+  taskTypeColor,
+} from "@/lib/taskTypes";
 
 const DATA = data as ContestsData;
-const filteredContests = DATA.contests.sort((a, b) => a.id - b.id).filter((a) =>
-  !a.disabled
-);
-const totalTasks = filteredContests.reduce(
-  (acc, c) => acc + c.tasks.length,
-  0
-) + (DATA.standaloneTasks?.length ?? 0);
+const filteredContests = DATA.contests
+  .slice()
+  .sort((a, b) => a.id - b.id)
+  .filter((a) => !a.disabled);
+const totalTasks =
+  filteredContests.reduce((acc, c) => acc + c.tasks.length, 0) +
+  (DATA.standaloneTasks?.length ?? 0);
+
+const roundsNewestFirst = filteredContests.slice().reverse();
 
 const HeroSection = () => {
   return (
-    <section
-      id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-    >
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.10),transparent_38%),radial-gradient(circle_at_80%_20%,rgba(249,115,22,0.08),transparent_30%),radial-gradient(circle_at_50%_100%,rgba(239,68,68,0.06),transparent_36%)]" />
+    <section id="hero" className="bg-white pt-16">
+      <div className="mx-auto grid min-h-[calc(100vh-64px)] max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-[1fr_minmax(0,500px)] lg:gap-16">
+        <div>
+          <p className="text-sm text-neutral-500">AI Community Contest</p>
+          <h1 className="mt-4 text-[40px] font-medium leading-[1.06] tracking-[-0.02em] text-neutral-900 md:text-[60px] md:tracking-[-0.03em]">
+            Practice contests for AI olympiads
+          </h1>
+          <p className="mt-6 max-w-[34rem] text-lg leading-[30px] text-neutral-600">
+            Monthly Kaggle rounds set by IOAI alumni. Sharpen your skills, learn
+            from a community of 600+ members and prepare for the international
+            level.
+          </p>
 
-        <div
-          className="absolute inset-0 opacity-[0.06] dark:opacity-[0.10]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(0,0,0,0.18) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.18) 1px, transparent 1px)",
-            backgroundSize: "72px 72px",
-            maskImage:
-              "radial-gradient(circle at center, black 45%, transparent 100%)",
-            WebkitMaskImage:
-              "radial-gradient(circle at center, black 45%, transparent 100%)",
-          }}
-        />
-
-        <div className="absolute -top-10 -left-10 md:-top-28 md:-left-28 h-32 md:h-[28rem] w-32 md:w-[28rem] rounded-full bg-aicc-purple/20 blur-3xl animate-blob-slow" />
-        <div className="absolute top-1/3 -right-10 md:-right-28 h-28 md:h-[24rem] w-28 md:w-[24rem] rounded-full bg-aicc-orange/18 blur-3xl animate-blob-slower" />
-        <div className="absolute bottom-[-4rem] md:bottom-[-10rem] left-1/2 h-24 md:h-[20rem] w-24 md:w-[20rem] -translate-x-1/2 rounded-full bg-aicc-red/10 blur-3xl animate-blob-slow" />
-      </div>
-
-      <div
-        className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]"
-        style={{
-          backgroundImage:
-            `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      <div className="relative z-10 text-center max-w-5xl my-auto mx-auto px-6">
-        {/* Badge */}
-        {
-          /*<div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-aicc-purple/10 to-aicc-orange/10 border border-aicc-purple/20 mb-8">
-          <Sparkles className="w-4 h-4 text-aicc-purple" />
-          <span className="text-sm font-medium bg-gradient-to-r from-aicc-purple to-aicc-orange bg-clip-text text-transparent">
-            Monthly AI Competitions
-          </span>
-        </div>-->*/
-        }
-
-        {/*<h1 className="text-6xl md:text-7xl bg-gradient-to-r from-aicc-purple via-aicc-orange to-aicc-purple bg-clip-text text-transparent font-bold mb-6 animate-gradient bg-[length:200%_auto]">
-          AI Community Contest
-        </h1>*/}
-
-        <img
-          src="/assets/aicc_long_black.png"
-          alt="AICC Logo"
-          className="opacity-100 max-h-24 inline-flex mb-5"
-
-        />
-
-        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-4 font-medium">
-          Contests to prepare for AI Olympiads
-        </p>
-
-        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Join IOAI alumni and AI enthusiasts in challenging monthly contests on
-          Kaggle. Sharpen your skills, learn from the community, and prepare for
-          the international level.
-        </p>
-
-        {/* Stats */}
-        <div className="flex flex-wrap justify-center gap-8 mb-10">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-aicc-purple bg-clip-text">
-              {filteredContests.length}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Contests Held
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-aicc-orange bg-clip-text">
-              {totalTasks}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Tasks
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-aicc-red bg-clip-text">
-              600+
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Discord Members
-            </div>
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <a
+              href="https://discord.gg/7GfxrqRreY"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center gap-2 rounded-[10px] bg-aicc-purple px-5 font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-[background-color,transform] duration-150 hover:bg-[#7a00e0] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aicc-purple"
+            >
+              Join the Discord to participate
+              <ExternalLink className="h-4 w-4 opacity-80" strokeWidth={1.5} />
+            </a>
+            <a
+              href="/contests"
+              className="inline-flex h-12 items-center gap-2 rounded-[10px] border border-black/[0.08] bg-white px-5 font-medium text-neutral-900 transition-colors duration-150 hover:bg-neutral-50"
+            >
+              Past contests
+              <ArrowRight className="h-4 w-4 text-neutral-500" strokeWidth={1.5} />
+            </a>
           </div>
         </div>
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button
-            onClick={() =>
-              window.open("https://discord.gg/7GfxrqRreY", "_blank")}
-            className="btn-gradient font-medium px-8 py-4 flex items-center gap-3 rounded-lg shadow-lg hover:shadow-xl transition-all"
-          >
-            <Users className="w-5 h-5" />
-            Join Discord to Participate
-            <ExternalLink className="w-4 h-4" />
-          </button>
 
-          <a href="/contests">
-            <button className="bg-background text-primary font-medium px-8 py-4 rounded-lg flex items-center gap-3 border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all">
-              View Past Contests
-              <Trophy className="w-4 h-4" />
-            </button>
-          </a>
+        {/* The moment: every round so far, one dot per task, colored by domain */}
+        <div className="overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)]">
+          <div className="flex h-14 items-center justify-between border-b border-black/[0.06] px-5">
+            <p className="text-[15px] font-medium text-neutral-900">Round archive</p>
+            <p className="font-mono text-xs tabular-nums text-neutral-500">
+              {filteredContests.length} rounds · {totalTasks} tasks
+            </p>
+          </div>
+
+          <ul>
+            {roundsNewestFirst.map((round, i) => (
+              <li key={round.id}>
+                <a
+                  href="/contests"
+                  className="grid h-10 grid-cols-[44px_1fr_auto] items-center px-5 transition-colors duration-150 hover:bg-neutral-50"
+                >
+                  <span className="font-mono text-xs tabular-nums text-neutral-500">
+                    R{round.title.replace(/\D/g, "")}
+                  </span>
+                  <span className="flex items-center gap-2 text-sm text-neutral-800">
+                    {round.month} {round.year}
+                    {i === 0 && (
+                      <span className="text-xs font-medium text-aicc-purple">Latest</span>
+                    )}
+                  </span>
+                  <span className="flex gap-2">
+                    {round.tasks.map((task, t) => {
+                      const types = splitTaskType(task.type);
+                      return (
+                        <span
+                          key={t}
+                          title={task.name}
+                          className="flex w-[68px] items-center gap-1.5 font-mono text-xs text-neutral-600"
+                        >
+                          <span className="flex -space-x-0.5">
+                            {types.map((type) => (
+                              <span
+                                key={type}
+                                className="h-2 w-2 rounded-full ring-2 ring-white"
+                                style={{ backgroundColor: taskTypeColor(type) }}
+                              />
+                            ))}
+                          </span>
+                          {types.map((type) => TASK_TYPE_LABELS[type.toUpperCase()] ?? type).join("+")}
+                        </span>
+                      );
+                    })}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-black/[0.06] px-5 py-3">
+            {Object.keys(TASK_TYPE_COLORS).map((key) => (
+              <span key={key} className="flex items-center gap-1.5 text-xs text-neutral-500">
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ backgroundColor: TASK_TYPE_COLORS[key] }}
+                />
+                {TASK_TYPE_LABELS[key]}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
